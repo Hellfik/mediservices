@@ -1,0 +1,42 @@
+{% extends 'adminBase.html.twig' %} {% block title %}{% endblock %} {% block body %}
+<div class="container-fluid bandeau bg-success">
+    <div class="container">
+        <h3 class="text-dark"><i class="fa fa-wheelchair" aria-hidden="true"></i> Ajout de materiel</h3>
+    </div>
+</div>
+<div class="card col-md-8 mx-auto my-5 px-0">
+    <div class="card-header bg-success text-dark">
+        <h2>Ajouter un materiel </h2>
+    </div>
+    <div class="card-body">
+        <div class="container">
+            <div class="card-text">
+                {{ form_start(form)}} {% if form_errors(form.serialNumber) %}
+                <div class="form-error text-center">
+                    <span class="badge badge-danger">Erreur</span>
+                    <small style="color:red;">{{form_errors(form.serialNumber) }}</small>
+                </div>
+                {% endif %}
+                <div class="form-group">
+                    <label for="materiel_serial_number">Numéro de série</label> {{form_widget(form.serialNumber, {'attr': {'placeholder' : 'Numéro de série', 'autofocus': 'autofocus','class' : 'form-control'}})}}
+                </div>
+                <div class="form-group">
+                    <label for="materiel_reference">Référence</label> {{form_widget(form.reference, {'attr': {'placeholder' : 'Référence','class' : 'form-control'}})}}
+                </div>
+                <div class="form-group">
+                    <label for="materiel_description">Description</label> {{form_widget(form.description, {'attr': {'placeholder' : 'Description','class' : 'form-control'}})}}
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="materiel_status">Status</label> {{form_widget(form.status, {'attr': {'class' : 'form-control'}})}}
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="materiel_category">Categorie</label> {{form_widget(form.category, {'attr': {'class' : 'form-control'}})}}
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-success mt-4">Ajouter</button> {{form_end(form)}}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

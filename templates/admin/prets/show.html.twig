@@ -1,0 +1,73 @@
+{% extends 'adminBase.html.twig' %} {% block body %}
+<div class="container-fluid bandeau bg-danger text-dark">
+    <div class="container">
+        <div class="row">
+            <h3 class="col-md-6 d-flex justify-content-md-start"><i class="fa fa-globe" aria-hidden="true"></i> Prêts</h3>
+            <form class="col-md-6 form-inline d-flex justify-content-md-end" method='GET'>
+                <input class="form-control form-search" type="search" name="search" placeholder="N° de serie" aria-label="Search">
+                <button class="btn btn-danger btn-search text-dark" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row  my-4">
+        {% for message in app.flashes('success') %}
+        <div class="col-md-12 alert alert-success alert-dismissible" id="successMessage">
+            <button type="button" class="close" data-dismiss="alert">&times;</button> {{message}}
+        </div>
+        {% endfor %}
+    </div>
+    <div class="card users-card col-md-12 mt-3 px-0">
+        <div class="card-header bg-danger text-dark d-flex justify-content-center">
+            <div class="row text-center">
+                <h5>Retrouver ci-dessous la liste des reservations en cours et à venir</h5>
+            </div>
+        </div>
+
+        <div class="card-body card-color">
+            {% if prets | length > 0 %}
+            <div class="card-text text-white">
+                {% set compteur = 0 %}
+                <div class="row">
+                    {% for pret in prets %} {% if pret.commercial.id != app.user.id %}
+                    <div class="col-md-4 mt-3">
+
+                        <div class="card text-center bg-dark">
+                            <div class="card-header">
+                                Prêt n°{{pret.id}}
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Client : <em><a href="{{path('client_pret_show', {'id' : pret.client.id})}}">{{pret.client.displayName}}</a></em></h5>
+                                <p class="card-text">Debut du pret : {{pret.dateDebut | date('d/m/Y')}}</p>
+                                <p class="card-text">Fin du pret : {{pret.dateFin | date('d/m/Y')}}</p>
+                                <a href="{{path('admin_show_one_pret', {'id': pret.id})}}" class="btn btn-danger text-dark">Plus d'informations</a>
+                            </div>
+                            <div class="card-footer text-muted">
+                                <em>Créé par {{pret.commercial.username}} le {{pret.createdAt | date('d/m/Y')}} à {{pret.createdAt | date('H:i')}}</em>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %} {% endfor %} {% else %}
+                    <h3 class="text-dark alert alert-warning">Aucun prêt en cours pour le moment...</h3>
+                    {% endif %}
+
+                </div>
+            </div>
+            {# display navigation #} {#
+            <div class="navigation mt-3">
+                {{ knp_pagination_render(prets) }}
+            </div> #}
+        </div>
+    </div>
+    {% endblock %} {% block javascripts %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        let alertMessage = $('#successMessage');
+
+
+        setTimeout(function() {
+            alertMessage.fadeOut();
+        }, 3000)
+    </script>
+    {% endblock %}

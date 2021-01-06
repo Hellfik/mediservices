@@ -1,0 +1,83 @@
+{% extends 'adminBase.html.twig' %} {% block title %}Client index{% endblock %} {% block body %}
+<div class="container-fluid bandeau bg-secondary text-dark">
+    <div class="container">
+        <div class="row">
+            <h3 class="col-md-6 d-flex justify-content-md-start"><i class="fa fa-users" aria-hidden="true"></i> Clients</h3>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row my-4">
+        {% for message in app.flashes('success') %}
+        <div class="col-md-12 alert alert-success alert-dismissible" id="successMessage">
+            <button type="button" class="close" data-dismiss="alert">&times;</button> {{message}}
+        </div>
+        {% endfor %}
+    </div>
+    <div class="row">
+
+
+        <div class="card users-card col-md-12 mt-5 px-0">
+            <div class="card-header bg-secondary text-dark">
+                <div class="row text-center">
+                    <h2 class="col-md-6 d-flex justify-content-md-start">Gérer les clients</h2>
+                </div>
+            </div>
+
+            <div class="card-body card-color">
+                <div class="card-text table-responsive">
+                    <table id="dtBasicExample" class="table table-dark table-striped" cellspacing="0">
+                        <thead>
+                            <tr class="text-center">
+                                <th class="th-sm">#</th>
+                                <th class="th-sm">Nom
+                                </th>
+                                <th class="th-sm">Prenom
+                                </th>
+                                <th class="th-sm">Adresse
+                                </th>
+                                <th class="th-sm">Telephone
+                                </th>
+                                <th class="th-sm">Code postal
+                                </th>
+                                <th class="th-sm">Ville
+                                </th>
+                                {% if is_granted('ROLE_RESPONSABLE')%}
+                                <th colspan="3" class="th-sm">Actions
+                                </th>
+                                {% endif %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% set compteur = 0 %} {% for client in clients %}
+                            <tr class="text-center h-100">
+                                {% set compteur = compteur + 1 %}
+                                <td class="align-middle">{{ compteur }}</td>
+                                <td class="align-middle">{{client.nom}}</td>
+                                <td class="align-middle">{{client.prenom}}</td>
+                                <td class="align-middle">{{client.adresse}}</td>
+                                <td class="align-middle">{{client.telephone}}</td>
+                                <td class="align-middle">{{client.codePostal}}</td>
+                                <td class="align-middle">{{client.ville}}</td>
+                                {% if is_granted('ROLE_ADMIN')%}
+                                <td class="align-middle" colspan="3"><a href="{{path('client_edit', {'id' : client.id})}}" class="btn btn-success btn-sm m-2">Modifier</a><a href="{{path('client_delete', {'id' : client.id})}}" class="btn btn-danger btn-sm m-2">Supprimer</a></td>
+                                {% endif %}
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div> {% endblock %} {% block javascripts %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        let alertMessage = $('#successMessage');
+
+
+        setTimeout(function() {
+            alertMessage.fadeOut();
+        }, 3000)
+    </script>
+    {% endblock %}

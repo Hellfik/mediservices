@@ -1,0 +1,76 @@
+{% extends 'adminBase.html.twig' %} {% block body %}
+<div class="container-fluid bandeau bg-warning text-dark">
+    <div class="container">
+        <h3><i class="fa fa-users" aria-hidden="true"></i> Utilisateurs</h3>
+    </div>
+</div>
+<div class="container">
+    <div class="row  my-4">
+        {% for message in app.flashes('success') %}
+        <div class="col-md-12 alert alert-success alert-dismissible" id="successMessage">
+            <button type="button" class="close" data-dismiss="alert">&times;</button> {{message}}
+        </div>
+        {% endfor %}
+    </div>
+    <div class="card users-card col-md-12 mt-5 px-0">
+        <div class="card-header bg-warning text-dark">
+            <div class="row text-center">
+                <h2 class="col-12">Gérer les Utilisateurs</h2>
+                <form class="col-12 form-inline" method='GET'>
+                    {% if send %}
+                    <input class="form-control form-search" type="search" name="search" placeholder="Rechercher un utilisateur" value="{{search}}" aria-label="Search"> {% else %}
+                    <input class="form-control form-search" type="search" name="search" placeholder="Rechercher un utilisateur" aria-label="Search"> {% endif %}
+                    <button class="btn btn-warning btn-search" type="submit"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+                </form>
+            </div>
+        </div>
+        <div class="card-body card-color">
+            {% if users | length > 0 %} {% if send %}
+            <h4 class="alert alert-success">{{users | length}} utilisateur{% if users | length > 1 %}s{% endif %} trouvé{% if users | length > 1 %}s{% endif %} pour la recherche "{{search}}"</h4>
+            {% endif %}
+            <div class="card-text table-responsive">
+                <table id="dtBasicExample" class="table table-dark table-striped" cellspacing="0">
+                    <thead>
+                        <tr class="text-center">
+                            <th class="th-sm">#</th>
+                            <th class="th-sm">Username
+                            </th>
+                            <th class="th-sm">Email
+                            </th>
+                            <th class="th-sm">Roles
+                            </th>
+                            <th colspan="2" class="th-sm">Actions
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% set compteur = 0 %} {% for user in users %} {% if app.user.username == user.username %} {% else %}
+                        <tr class="text-center h-100">
+                            {% set compteur = compteur + 1 %}
+                            <td class="align-middle">{{ compteur }}</td>
+                            <td class="align-middle">{{user.username}}</td>
+                            <td class="align-middle">{{user.email}}</td>
+                            <td class="align-middle">{% for role in user.roles %}{{role | lower}}{% if user.roles | length > 1 %},{% endif %}{% endfor %}</td>
+                            <td colspan="2"><a href="{{path('admin_edit_user', {'id' : user.id})}}" class="btn btn-success m-2">Modifier</a><a href="{{path('admin_delete_user', {'id' : user.id})}}" class="btn btn-danger m-2">Supprimer</a></td>
+                        </tr>
+                        {% endif %} {% endfor %}
+                    </tbody>
+                </table>
+                {% else %} {% if send %}
+                <h4 class="alert alert-danger">Aucun Utilisateur trouvé pour la recherche "{{search}}"</h4>
+                {% endif %} {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} {% block javascripts %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+    let alertMessage = $('#successMessage');
+
+
+    setTimeout(function() {
+        alertMessage.fadeOut();
+    }, 3000)
+</script>
+{% endblock %}

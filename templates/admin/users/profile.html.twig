@@ -1,0 +1,73 @@
+{% extends 'adminBase.html.twig' %} {% block body %}
+<div class="container-fluid bandeau bg-primary">
+    <div class="container">
+        <h3><i class="fa fa-user" aria-hidden="true"></i> Modifier votre profile</h3>
+    </div>
+</div>
+<div class="container-fluid bg-secondary">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <a href="{{path('admin')}}" type="button" class="btn btn-primary btn-lg btn-block my-4" style="font-size:0.7em;"><i class="fa fa-arrow-left px-2"></i>Retour sur le tableau de bord</a>
+            </div>
+            <div class="col-md-4">
+                <a href="" type="button" class="btn btn-success btn-lg btn-block my-4" style="font-size:0.7em;"><i class="fa fa-lock px-2"></i>Changer votre mot de passe</a>
+            </div>
+            <div class="col-md-4">
+                <a href="{{path('admin_self_delete', {'username' : app.user.username})}}" type="button" class="btn btn-danger btn-lg btn-block my-4" style="font-size:0.7em;"><i class="fa fa-trash px-2"></i>Supprimer le compte</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card mx-1 " style="background:none !important;">
+                <div class="card-body text-white">
+                    <img src="/images/dna.jpg" class="card-img-top" alt="user picture ">
+                    <a href="#" class="btn btn-primary btn-block m-0" data-toggle="modal" data-target="#myModal">Modifier l'image</a>
+                    <a href="# " class="btn btn-danger btn-block m-0 ">Supprimer l'image</a>
+                </div>
+            </div>
+        </div>
+        <!-- The Modal -->
+        <div class="modal" id="myModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Modifier votre image</h4>
+                        <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-6 d-flex">
+                                <img src="/images/dna.jpg" class="img-modal" alt="user picture ">
+                            </div>
+                            <div class="col-6">
+                                <form action="">
+                                    <label for="edit" class="edit-pic"><i class="fa fa-upload" aria-hidden="true"></i>  Upload picture</label>
+                                    <input type="file" style="display:none" name="edit" id="edit">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

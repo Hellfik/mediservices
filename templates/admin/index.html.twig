@@ -1,0 +1,162 @@
+{% extends 'adminBase.html.twig' %} {% block title %}Medi'Admin{% endblock %} {% block body %}
+<div class="container-fluid bandeau bg-primary">
+    <div class="container">
+        <div class="row">
+            <h3 class="col-md-8"><i class="fa fa-cog" aria-hidden="true"></i> Tableau de Bord | <small style="color:#eee;">Gerer votre application de façon autonome</small></h3>
+            <h3 class="col-md-4"><small><span id='hrs'>0</span>:<span id='mins'>0</span>:<span id='secs'>0</span></small></h3>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row d-flex justify-content-center">
+        {% if is_granted('ROLE_RESPONSABLE')%}
+        <div class="col-md-4">
+            <a href="{{path('admin_add_materiel')}}" type="button" class="btn btn-success btn-lg btn-block my-4"><i class="fa fa-plus px-2"></i>Materiel</a>
+        </div>
+        {% endif %} {% if is_granted('ROLE_COMMERCIAL')%}
+        <div class="col-md-4">
+            <a href="{{path('admin_add_pret')}}" type="button" class="btn btn-danger btn-lg btn-block my-4"><i class="fa fa-plus px-2"></i>Prêt</a>
+        </div>
+        {% endif %} {% if is_granted('ROLE_ADMIN')%}
+        <div class="col-md-4">
+            <a href="{{path('security_registration')}}" type="button" class="btn btn-warning text-white btn-lg btn-block my-4"><i class="fa fa-plus px-2"></i>Utilisateur</a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="container">
+    <div class="row d-flex">
+        <div class="card col-md-3 text-white text-center bg-success my-3 mx-2">
+            <div class="card-body count-widget">
+                <h5 class="card-title">Matériaux</h5>
+                <p class="card-text text-widget"><i class="fa fa-wheelchair" aria-hidden="true"></i>
+                    <span>{{materiels}}</span></p>
+                <a href="{{path('admin_materiel')}}" class="btn btn-widget">Voir</a>
+
+            </div>
+        </div>
+        <div class="card col-md-3 text-white text-center bg-danger my-3 mx-2">
+            <div class="card-body count-widget">
+                <h5 class="card-title">Prêts</h5>
+                <p class="card-text text-widget">
+                    <i class="fa fa-globe" aria-hidden="true"></i>
+                    <span>{{totalNumberOfLoan}}</span></p>
+                <a href="{{path('admin_historique_pret')}}" class="btn btn-widget">Voir</a>
+            </div>
+        </div>
+        {% if is_granted('ROLE_ADMIN')%}
+        <div class="card col-md-3 text-white text-center bg-warning my-3 mx-2">
+            <div class="card-body count-widget">
+                <h5 class="card-title">Users</h5>
+                <p class="card-text text-widget"><i class="fa fa-users mx-2"></i><span>{{users}}</span></p>
+                <a href="{{path('admin_users')}}" class="btn btn-widget">Voir</a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        {% set rotation = matAvailable*100/materiels %} {% set rotation2 = matMaintenance*100/materiels %} {% set rotation3 = nbPret*100/materiels %}
+
+        <div class="col-md-4 text-white rounded-lg p-5 shadow">
+            <h2 class="h6 font-weight-bold text-center mb-4 text-success">Materiaux disponibles</h2>
+
+            <!-- Progress bar 2 -->
+            <div class="progress mx-auto" data-value='{{rotation}}'>
+                <span class="progress-left">
+                        <span class="progress-bar border-success"></span>
+                </span>
+                <span class="progress-right">
+                        <span class="progress-bar border-success"></span>
+                </span>
+                <div class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
+                    <div class="h2 font-weight-bold">{{matAvailable}}<sub class="small"><small>/{{materiels}}</small></sub></div>
+                </div>
+            </div>
+            <!-- END -->
+        </div>
+        <div class="col-md-4 text-white rounded-lg p-5 shadow">
+            <h2 class="h6 font-weight-bold text-center mb-4 text-danger">Prêts en cours</h2>
+
+            <!-- Progress bar 2 -->
+            <div class="progress mx-auto" data-value='{{rotation3}}'>
+                <span class="progress-left">
+                        <span class="progress-bar border-danger"></span>
+                </span>
+                <span class="progress-right">
+                        <span class="progress-bar border-danger"></span>
+                </span>
+                <div class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
+                    <div class="h2 font-weight-bold">{{nbPret}}</div>
+                </div>
+            </div>
+            <!-- END -->
+        </div>
+
+        <div class="col-md-4 text-white rounded-lg p-5 shadow">
+            <h2 class="h6 font-weight-bold text-center mb-4 text-primary">Materiaux en maintenance</h2>
+
+            <!-- Progress bar 2 -->
+            <div class="progress mx-auto" data-value='{{rotation2}}'>
+                <span class="progress-left">
+                        <span class="progress-bar border-primary"></span>
+                </span>
+                <span class="progress-right">
+                        <span class="progress-bar border-primary"></span>
+                </span>
+                <div class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
+                    <div class="h2 font-weight-bold">{{matMaintenance}}<sub class="small"><small>/{{materiels}}</small></sub></div>
+                </div>
+            </div>
+            <!-- END -->
+        </div>
+    </div>
+</div>
+
+
+{% endblock %} {% block javascripts %}
+<script>
+    $(document).ready(function() {
+        setInterval(_initTimer, 1000);
+
+
+        $(".progress").each(function() {
+
+            var value = $(this).attr('data-value');
+            var left = $(this).find('.progress-left .progress-bar');
+            var right = $(this).find('.progress-right .progress-bar');
+
+            if (value > 0) {
+                if (value <= 50) {
+                    right.css('transform', 'rotate(' + percentageToDegrees(value) + 'deg)')
+                } else {
+                    right.css('transform', 'rotate(180deg)')
+                    left.css('transform', 'rotate(' + percentageToDegrees(value - 50) + 'deg)')
+                }
+            }
+
+        })
+
+    });
+
+    function percentageToDegrees(percentage) {
+
+        return percentage / 100 * 360
+
+    }
+
+    function _initTimer() {
+        $.ajax({
+            url: '{{asset("js/timer.php")}}',
+            success: function(data) {
+                data = data.split(':');
+                $('#hrs').html(data[0]);
+                $('#mins').html(data[1]);
+                $('#secs').html(data[2]);
+            }
+        });
+    }
+</script>
+{% endblock %}

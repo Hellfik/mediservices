@@ -1,0 +1,33 @@
+{% extends 'adminBase.html.twig' %} {% block title %}Client{% endblock %} {% block body %}
+<div class="container-fluid bandeau bg-danger text-dark">
+    <div class="container">
+        <div class="row">
+            <a href="{{path('client_index')}}" class="btn btn-danger text-dark"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> Retour sur les clients
+            </a>
+            <h3 class="col-md-6 d-flex justify-content-md-start"> <i class="fa fa-globe" aria-hidden="true"></i> Client {{client.nom}} {{client.prenom}}</h3>
+
+        </div>
+    </div>
+</div>
+<div class="container mt-3">
+    <div class="card col-md-12 mb-3 m-auto">
+        <div class="row no-gutters">
+            <div class="col-md-8">
+                <div class="card-body text-left">
+                    <h5 class="card-title"><i class="fa fa-info-circle"></i> Informations sur le client</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Nom : <span style="color:rgb(175, 80, 2)"><strong>{{client.nom}}</strong> </span></li>
+                        <li class="list-group-item">Prenom : <span style="color:rgb(175, 80, 2)"><strong>{{client.prenom}}</strong> </span></li>
+                        <li class="list-group-item">Adresse : <span style="color:rgb(175, 80, 2)"><strong>{{client.adresse}}</strong></span></li>
+                        <li class="list-group-item">Telephone : <span style="color:rgb(175, 80, 2)"><strong>{{client.telephone}}</strong></span></li>
+                        <li class="list-group-item">Code postal : <span style="color:rgb(175, 80, 2)"><strong>{{client.codePostal}}</strong></span></li>
+                        <li class="list-group-item">Ville : <span style="color:rgb(175, 80, 2)"><strong>{{client.ville}}</strong></span></li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+        {{ include('client/_delete_form.html.twig') }}
+    </div>
+</div>
+{% endblock %}

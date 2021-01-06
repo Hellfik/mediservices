@@ -1,0 +1,35 @@
+{% extends 'adminBase.html.twig'%} {% block body %}
+<div class="container-fluid bandeau bg-warning">
+    <div class="container">
+        <h3 class="text-dark"><i class="fa fa-user" aria-hidden="true"></i> Modification utilisateur</h3>
+    </div>
+</div>
+<div class="card col-md-8 mx-auto my-5 px-0">
+    <div class="card-header bg-warning">
+        <h2>Utilisateur, {{user.username}}</h2>
+    </div>
+    <div class="card-body bg-secondary">
+        <div class="container">
+            <h5 class="card-title text-center">Modifier l'utilisateur, {{user.username}}</h5>
+            <div class="card-text">
+                {{ form_start(form)}}
+                <div class="form-group">
+                    {{form_row(form.username, {'attr' : {'class' : 'form-control'}})}}
+                </div>
+                <div class="form-group">
+                    {{form_row(form.email, {'attr' : {'class' : 'form-control'}})}}
+                </div>
+            </div>
+            <div class="form-group">
+                {{form_row(form.roles, {'attr' : {'class' : 'form-control'}})}}
+            </div>
+            <div class="form-group">
+                <button class="btn btn-warning">Modifier</button>
+            </div>
+            {{form_end(form)}}
+        </div>
+    </div>
+</div>
+</div>
+
+{% endblock %}

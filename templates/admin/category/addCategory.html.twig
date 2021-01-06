@@ -1,0 +1,30 @@
+{% extends 'adminBase.html.twig' %} {% block title %}{% endblock %} {% block body %}
+<div class="container-fluid bandeau bg-primary">
+    <div class="container">
+        <h3><i class="fa fa-tag" aria-hidden="true"></i> Ajout d'une categorie de materiel</h3>
+    </div>
+</div>
+<div class="card col-md-8 mx-auto my-5 px-0">
+    <div class="card-header bg-primary text-white">
+        <h2>Ajouter une categorie </h2>
+    </div>
+    <div class="card-body">
+        <div class="container">
+            <div class="card-text">
+                {{ form_start(form)}}
+                <div class="form-group">
+                    {{form_row(form.name, {'attr' : {'class' : 'form-control'}})}}
+                </div>
+                <div class="form-group">
+                    {{form_row(form.description, {'attr' : {'class' : 'form-control'}})}}
+                </div>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-success">Ajouter</button>
+            </div>
+            {{form_end(form)}}
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

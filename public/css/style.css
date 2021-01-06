@@ -1,0 +1,217 @@
+/*
+ * Globals
+ */
+
+@import url('https://fonts.googleapis.com/css?family=Indie+Flower&display=swap');
+* {
+    box-sizing: border-box;
+}
+
+
+/* Links */
+
+a,
+a:focus,
+a:hover {
+    color: #fff;
+}
+
+
+/* Custom default button */
+
+.btn-secondary,
+.btn-secondary:hover,
+.btn-secondary:focus {
+    color: #333;
+    text-shadow: none;
+    /* Prevent inheritance from `body` */
+    background-color: #fff;
+    border: .05rem solid #fff;
+}
+
+
+/*
+ * Base structure
+ */
+
+html,
+body {
+    height: 100%;
+    background: url('../images/computer.jpg');
+    font-size: 1em;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: 'montserrat', sans-serif;
+}
+
+body {
+    display: -ms-flexbox;
+    display: flex;
+    color: #fff;
+    text-shadow: 0 .05rem .1rem rgba(0, 0, 0, .5);
+    box-shadow: inset 0 0 5rem rgba(0, 0, 0, .5);
+}
+
+body:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.cover-container {
+    max-width: 42em;
+    z-index: 100000;
+}
+
+#particles-js {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 99
+}
+
+
+/*
+ * Header
+ */
+
+.masthead {
+    margin-bottom: 2rem;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: #fff !important;
+}
+
+.nav-item a {
+    font-size: 1.2em;
+    transition: 0.5s;
+}
+
+.nav-item:hover a {
+    background-color: #2196f3;
+    box-shadow: 0 0 10px #2196f3, 0 0 40px #2196f3, 0 0 80px #2196f3;
+}
+
+.navbar-brand h1 {
+    color: #2196f3;
+    font-family: 'Indie Flower', cursive;
+}
+
+.navbar-toggler {
+    background-color: #2196f3;
+    box-shadow: 0 0 10px #2196f3, 0 0 40px #2196f3, 0 0 80px #2196f3;
+}
+
+
+/*
+ * Cover
+ */
+
+.cover {
+    padding: 0 1.5rem;
+}
+
+.cover-heading {
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.cover .btn-lg {
+    padding: .75rem 1.25rem;
+    font-weight: 700;
+}
+
+.btn-success,
+.btn-success:hover,
+.btn-success:visited,
+.btn-success:active {
+    color: #fff;
+    background-color: #2196f3 !important;
+    box-shadow: 0 0 10px #2196f3, 0 0 40px #2196f3, 0 0 80px #2196f3;
+    border: none;
+    border-radius: 0;
+    outline: none
+}
+
+.btn .btn-success:hover {
+    background-color: #2196f3;
+    box-shadow: 0 0 10px #2196f3, 0 0 40px #2196f3, 0 0 80px #2196f3;
+}
+
+
+/*
+* Registration form
+*/
+
+.box {
+    width: 100%;
+    padding: 40px;
+    background-color: rgba(0, 0, 0, 0.5);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5)
+}
+
+.box .inputBox {
+    position: relative;
+    text-align: center;
+}
+
+.box .inputBox input {
+    width: 100%;
+    padding: 10px 10px;
+    color: #fff;
+    border: none;
+    border-bottom: 2px solid #fff;
+    background-color: transparent;
+    margin-bottom: 25px;
+    transition: 0.5s;
+    text-align: center;
+    /* pointer-events: none; */
+}
+
+label {
+    width: 100%;
+    font-size: 20px;
+    transition: 0.5s;
+    position: absolute;
+    top: 7px;
+    left: 0;
+    text-align: left;
+    padding-bottom: 10px;
+}
+
+small {
+    color: red;
+    font-size: 16px;
+}
+
+.box .inputBox input:focus {
+    border-bottom: 2px solid #2196f3;
+}
+
+.box .inputBox input:focus~label {
+    color: #2196f3
+}
+
+
+/*
+ * Footer
+ */
+
+.mastfoot {
+    color: rgba(255, 255, 255);
+}
+
+@media screen and (max-width:768px) {
+    .navbar-brand h1 {
+        font-size: 1.5em;
+    }
+}

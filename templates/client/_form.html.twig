@@ -1,0 +1,31 @@
+{{ form_start(form)}} {% if form_errors(form.nom) %}
+<div class="form-error text-center">
+    <span class="badge badge-danger">Erreur</span>
+    <small style="color:red;">{{form_errors(form.nom) }}</small>
+</div>
+{% endif %}
+<div class="row">
+    <div class="form-group col-md-6">
+        <label for="materiel_serial_number">Nom</label> {{form_widget(form.nom, {'attr': {'placeholder' : 'Nom', 'autofocus': 'autofocus','class' : 'form-control'}})}}
+    </div>
+    <div class="form-group col-md-6">
+        <label for="materiel_reference">prenom</label> {{form_widget(form.prenom, {'attr': {'placeholder' : 'Prenom','class' : 'form-control'}})}}
+    </div>
+</div>
+<div class="form-group">
+    <label for="materiel_description">Adresse</label> {{form_widget(form.adresse, {'attr': {'placeholder' : 'Adresse','class' : 'form-control'}})}}
+</div>
+<div class="row">
+    <div class="form-group col-md-6">
+        <label for="materiel_category">Ville</label> {{form_widget(form.ville, {'attr': {'class' : 'form-control', 'placeholder' : 'Ville'}})}}
+    </div>
+    <div class="form-group col-md-6">
+        <label for="materiel_category">Code postal</label> {{form_widget(form.codePostal, {'attr': {'class' : 'form-control', 'placeholder' : 'Code postal'}})}}
+    </div>
+    {{form_widget(form.displayName)}}
+
+</div>
+<div class="form-group">
+    <label for="materiel_status">Telephone <br><em><small style="color:#a3a3a3">Format accepté xx-xx-xx-xx-xx</small></em> {{form_widget(form.telephone, {'attr': {'class' : 'form-control', 'placeholder' : 'Tel'}})}}
+</div>
+<button type="submit" class="btn btn-secondary mt-4">{{ button_label|default('Save') }}</button> {{form_end(form)}}

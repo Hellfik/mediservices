@@ -1,0 +1,66 @@
+{% extends 'adminBase.html.twig' %} {% block body %}
+<div class="container-fluid bandeau bg-danger text-dark">
+    <div class="container">
+        <div class="row">
+            <a href="{{path('admin_materiel')}}" class="btn btn-danger text-dark"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> Retour sur les matériaux
+            </a>
+            <h3 class="col-md-6 d-flex justify-content-md-start"> <i class="fa fa-globe" aria-hidden="true"></i> Materiel {{materiel.serialNumber}}</h3>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row  my-4">
+        {% for message in app.flashes('success') %}
+        <div class="col-md-12 alert alert-success alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert">&times;</button> {{message}}
+        </div>
+        {% endfor %}
+    </div>
+    <div class="row mt-4">
+        <div class="card col-md-12 mb-3 m-auto">
+            <div class="row no-gutters">
+                {#
+                <div class="col-md-4 d-flex">
+                    {% if pret.materiel.category.name == 'Lit médicalisé' %}
+                    <p><i class="fa fa-bed" style="font-size: 200px;" aria-hidden="true"></i>
+                    </p>
+                    {% elseif pret.materiel.category.name == 'Fauteuil roulant' %}
+                    <p><i class="fa fa-wheelchair" style="font-size: 200px;" aria-hidden="true"></i>
+                    </p>
+                    {% elseif pret.materiel.category.name == 'Défibrilateur' %}
+                    <p><i class="fa fa-heartbeat" style="font-size: 200px;" aria-hidden="true"></i>
+                    </p>
+                    {% endif %}
+                </div> #}
+                <div class="col-md-12">
+                    <div class="card-body text-left">
+                        <h5 class="card-title"><i class="fa fa-info-circle"></i> Informations sur le materiel </h5>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">N° de serie <span style="color:rgb(175, 80, 2)"><strong>{{materiel.serialNumber}}</strong> </span></li>
+                            <li class="list-group-item">Categorie de materiel : <span style="color:rgb(175, 80, 2)"><strong>{{materiel.category.name}}</strong> </span></li>
+                            <li class="list-group-item">Reference : <span style="color:rgb(175, 80, 2)"><strong>{{materiel.reference}}</strong></span></li>
+                            <li class="list-group-item">Description : <span style="color:rgb(175, 80, 2)"><strong>{{materiel.description}}</strong></span></li>
+                            <li class="list-group-item">Status : <span style="color:rgb(175, 80, 2)"><strong>{{materiel.status}}</strong></span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %} {% block javascripts %}
+<script>
+    $(document).ready(function() {
+        setInterval(_initTimer, 1000);
+    });
+
+    function _initTimer() {
+
+    }
+
+    function _timer(number) {
+
+    }
+</script>
+{% endblock %}
